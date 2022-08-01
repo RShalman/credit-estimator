@@ -1,14 +1,12 @@
-<script>
-    export let label = 'Your label';
-    export let placeholder = 'Your placeholder';
-    export let value = ''
-    export let onChange = () => {}
+<script lang="ts">
+    export let value, type = 'text', label = 'Your label', placeholder = 'Your placeholder'
+
 </script>
 
 <div class="form-control">
     <label class="label">
         <span class="text-black">{label}</span>
     </label>
-    <input type="text" placeholder={placeholder} class="input input-primary input-bordered w-full max-w-xs"
-           value={value} on:change={onChange}/>
+    <input type='number' placeholder={placeholder} class="input input-primary input-bordered w-full"
+           bind:value={value}/>
 </div>
