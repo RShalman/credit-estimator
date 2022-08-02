@@ -7,9 +7,9 @@
 
 <form on:submit={(e) => e.preventDefault() }
       class="container mx-auto flex items-center justify-center flex-wrap flex-row ">
-    {#each form as field}
+    {#each form as {value, ...field}}
         <div class="flex-auto w-full mx-auto [&>div]:justify-center [&>div]:items-center">
-        <Input bind:value={field.value} label={field.label}/>
+        <Input bind:value={value} {...field}/>
         </div>
     {/each}
 </form>

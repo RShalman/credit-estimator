@@ -11,4 +11,5 @@ export default {
   },
   purge: ['./index.html', './src/**/*.{svelte,js,ts}'],
   plugins: [daisyui],
+  darkMode: ['class', '[data-theme="dark"]'],
 };
