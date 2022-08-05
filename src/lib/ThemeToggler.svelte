@@ -1,16 +1,11 @@
 <script lang="ts">
-    import {getTheme, toggleLightAndDarkThemes} from "../../utils/theme";
+    import {theme, toggleTheme} from "@components/stores/ThemeStore";
 
-    let currentTheme = getTheme()
-    $: isLightTheme = currentTheme === 'light'
+    $: isLightTheme = $theme === 'light'
 </script>
 <label class="swap swap-rotate">
     <!-- this hidden checkbox controls the state -->
-    <input type="checkbox" bind:checked={isLightTheme} on:click={(e) => {
-
-        toggleLightAndDarkThemes()
-        currentTheme = getTheme()
-    }}/>
+    <input type="checkbox" bind:checked={isLightTheme} on:click={toggleTheme}/>
 
     <!-- sun icon -->
     <svg class={` swap-on fill-current w-10 h-10`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
