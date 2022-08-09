@@ -3,7 +3,10 @@
 
     export let className: string;
     export let text: string = 'Button';
-    export let onClick: IFunction = () => {};
+    export let onClick: IFunction = () => {
+    };
+    export let isDisabled: boolean = false
 </script>
 
-<button class={`btn${className ? " " + className : ''} btn-xs sm:btn-sm md:btn-md lg:btn-md`} on:click={onClick}>{text}</button>
+<button class={`btn${className ? " " + className : ''} w-full btn-md sm:btn-md md:btn-md lg:btn-md ${isDisabled ? 'btn-disabled' : ''}`}
+        on:click={onClick} role="button" aria-disabled={isDisabled} disabled={isDisabled}>{text}</button>

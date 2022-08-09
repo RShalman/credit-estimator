@@ -4,7 +4,7 @@
 </script>
 
 <div class="form-control">
-    <label class="label">
+    <label class="label self-start">
         <span class="text-black">{label}</span>
     </label>
     <input type='number' placeholder={placeholder} class="input input-primary input-bordered w-full"

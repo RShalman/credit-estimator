@@ -30,11 +30,13 @@ function getMonthlyRepayAmount(
   creditSum: number,
   creditTimeInMonths: number,
   interestRate: number,
+  bMonthlyRepayment?: number,
 ): {
   basicMonthlyRepayment: number;
   monthlyRepayment: number;
 } {
-  const basicMonthlyRepayment = +(creditSum / creditTimeInMonths).toFixed(2);
+  const basicMonthlyRepayment = bMonthlyRepayment ? bMonthlyRepayment : +(creditSum / creditTimeInMonths).toFixed(2);
+
   const monthlyAddedPercentSum = getMonthlyAddedPercent(creditSum, interestRate);
 
   return { basicMonthlyRepayment, monthlyRepayment: +(basicMonthlyRepayment + monthlyAddedPercentSum).toFixed(2) };
@@ -46,36 +48,45 @@ function getTimeToRepayCreditTable({
   creditTimeInMonths,
   interestRate,
   minManualPayment,
+  bMonthlyRepayment,
 }: {
   creditSum: number;
   creditTimeInMonths: number;
   interestRate: number;
   minManualPayment: number;
+  bMonthlyRepayment?: number;
   table?: Table<CalculationHeaders>;
 }): Table<CalculationHeaders> {
-  if (creditSum > 100) {
-    const { basicMonthlyRepayment, monthlyRepayment } = getMonthlyRepayAmount(
-      creditSum,
-      creditTimeInMonths,
-      interestRate,
-    );
+  const { basicMonthlyRepayment, monthlyRepayment } = getMonthlyRepayAmount(
+    creditSum,
+    creditTimeInMonths,
+    interestRate,
+    bMonthlyRepayment,
+  );
 
-    const toRepay = minManualPayment && minManualPayment >= monthlyRepayment ? minManualPayment : monthlyRepayment;
+  if ((typeof minManualPayment === 'number' && creditSum > minManualPayment) || creditSum > basicMonthlyRepayment) {
+    const toRepay =
+      !!minManualPayment && minManualPayment >= monthlyRepayment ? minManualPayment : basicMonthlyRepayment;
 
-    const creditSumAfterPayment = +(creditSum + getMonthlyAddedPercent(creditSum, interestRate) - toRepay).toFixed(2);
+    const creditSumAfterPayment = creditSum + getMonthlyAddedPercent(creditSum, interestRate) - toRepay;
+    const creditSumAfterPaymentNormalized = +(creditSumAfterPayment > 0 ? creditSumAfterPayment : 0).toFixed(2);
+
+    if (creditSumAfterPaymentNormalized === 0) return table;
 
     table.items.push({
-      creditSum: creditSumAfterPayment,
-      amountToRepay: toRepay,
-      generalPayment: basicMonthlyRepayment,
+      creditSum: creditSumAfterPaymentNormalized,
+      amountToRepay: creditSumAfterPaymentNormalized < toRepay ? creditSumAfterPaymentNormalized : toRepay,
+      generalPayment:
+        creditSumAfterPaymentNormalized < toRepay ? creditSumAfterPaymentNormalized : basicMonthlyRepayment,
     });
 
     return getTimeToRepayCreditTable({
       table,
-      creditSum: creditSumAfterPayment,
+      creditSum: creditSumAfterPaymentNormalized,
       creditTimeInMonths,
       interestRate,
       minManualPayment,
+      bMonthlyRepayment: basicMonthlyRepayment,
     });
   } else {
     return table;

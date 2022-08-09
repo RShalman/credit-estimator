@@ -1,25 +1,26 @@
 <script lang="ts">
     import type {Table} from "@components/Table";
 
-    export let table: Table;
+    export let table: Table<unknown>;
 
 </script>
 
+{#if table}
 <div class="overflow-x-auto">
-    <table class="table table-compact w-full">
+    <table class="table table-normal w-full">
         <thead>
         <tr>
             <th></th>
-            {#each table.headers as header }
+            {#each table?.headers as header }
                 <th>{header}</th>
             {/each}
         </tr>
         </thead>
         <tbody>
-        {#each table.items as item, idx }
+        {#each table?.items as item, idx }
             <tr>
                 <th>{idx + 1}</th>
-                {#each table.headers as header }
+                {#each table?.headers as header }
                     <td>{item[header]}</td>
                 {/each}
             </tr>
@@ -28,10 +29,11 @@
         <tfoot>
         <tr>
             <th></th>
-            {#each table.headers as header }
+            {#each table?.headers as header }
                 <th>{header}</th>
             {/each}
         </tr>
         </tfoot>
     </table>
 </div>
+{/if}

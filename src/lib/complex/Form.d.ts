@@ -1,3 +1,4 @@
-import type { InputProps } from 'src/lib/Input.d';
+import { appFormSchema } from '@components/stores/FormStore';
 
-export type IForm = (InputProps & { name: string })[];
+export type IForm = ReturnType<typeof appFormSchema>;
+export type FormFieldNames = IForm[number]['name'];
