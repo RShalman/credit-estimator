@@ -8,10 +8,13 @@ export type CalculationHeaders = typeof headers[number];
 export const calculations = writable(null);
 
 export function makeCalculations(creditSum, creditTimeInMonths, interestRate, minManualPayment) {
+  const annuityPayment = getAnnuityPayment(creditSum, interestRate, creditTimeInMonths);
+
   const tableData = getTimeToRepayCreditTable({
     creditSum,
     creditTimeInMonths,
     interestRate,
+    annuityPayment,
     minManualPayment,
   });
 
@@ -22,24 +25,16 @@ export function resetCalculations() {
   calculations.set(null);
 }
 
-function getMonthlyAddedPercent(sum: number, interestRate: number): number {
-  return ((sum / 100) * interestRate) / 12;
+function getAnnuityPayment(sum: number, interestRate: number, creditTimeInMonths: number): number {
+  const irPerMonth = interestRate / 100 / 12;
+  return +(
+    sum *
+    ((irPerMonth * Math.pow(1 + irPerMonth, creditTimeInMonths)) / (Math.pow(1 + irPerMonth, creditTimeInMonths) - 1))
+  ).toFixed(2);
 }
 
-function getMonthlyRepayAmount(
-  creditSum: number,
-  creditTimeInMonths: number,
-  interestRate: number,
-  bMonthlyRepayment?: number,
-): {
-  basicMonthlyRepayment: number;
-  monthlyRepayment: number;
-} {
-  const basicMonthlyRepayment = bMonthlyRepayment ? bMonthlyRepayment : +(creditSum / creditTimeInMonths).toFixed(2);
-
-  const monthlyAddedPercentSum = getMonthlyAddedPercent(creditSum, interestRate);
-
-  return { basicMonthlyRepayment, monthlyRepayment: +(basicMonthlyRepayment + monthlyAddedPercentSum).toFixed(2) };
+function getMonthlyAddedPercent(sum: number, interestRate: number): number {
+  return ((sum / 100) * interestRate) / 12;
 }
 
 function getTimeToRepayCreditTable({
@@ -48,27 +43,21 @@ function getTimeToRepayCreditTable({
   creditTimeInMonths,
   interestRate,
   minManualPayment,
-  bMonthlyRepayment,
+  annuityPayment,
 }: {
   creditSum: number;
   creditTimeInMonths: number;
   interestRate: number;
   minManualPayment: number;
-  bMonthlyRepayment?: number;
+  annuityPayment: number;
   table?: Table<CalculationHeaders>;
 }): Table<CalculationHeaders> {
-  const { basicMonthlyRepayment, monthlyRepayment } = getMonthlyRepayAmount(
-    creditSum,
-    creditTimeInMonths,
-    interestRate,
-    bMonthlyRepayment,
-  );
+  if ((typeof minManualPayment === 'number' && creditSum > minManualPayment) || creditSum > annuityPayment) {
+    const toRepay = !!minManualPayment && minManualPayment >= annuityPayment ? minManualPayment : annuityPayment;
 
-  if ((typeof minManualPayment === 'number' && creditSum > minManualPayment) || creditSum > basicMonthlyRepayment) {
-    const toRepay =
-      !!minManualPayment && minManualPayment >= monthlyRepayment ? minManualPayment : basicMonthlyRepayment;
+    const creditSumAfterPayment =
+      creditSum + getMonthlyAddedPercent(creditSum, interestRate) - (minManualPayment ?? toRepay);
 
-    const creditSumAfterPayment = creditSum + getMonthlyAddedPercent(creditSum, interestRate) - toRepay;
     const creditSumAfterPaymentNormalized = +(creditSumAfterPayment > 0 ? creditSumAfterPayment : 0).toFixed(2);
 
     if (creditSumAfterPaymentNormalized === 0) return table;
@@ -76,17 +65,16 @@ function getTimeToRepayCreditTable({
     table.items.push({
       creditSum: creditSumAfterPaymentNormalized,
       amountToRepay: creditSumAfterPaymentNormalized < toRepay ? creditSumAfterPaymentNormalized : toRepay,
-      generalPayment:
-        creditSumAfterPaymentNormalized < toRepay ? creditSumAfterPaymentNormalized : basicMonthlyRepayment,
+      generalPayment: creditSumAfterPaymentNormalized < toRepay ? creditSumAfterPaymentNormalized : annuityPayment,
     });
 
     return getTimeToRepayCreditTable({
       table,
       creditSum: creditSumAfterPaymentNormalized,
-      creditTimeInMonths,
+      creditTimeInMonths: creditTimeInMonths - 1,
       interestRate,
       minManualPayment,
-      bMonthlyRepayment: basicMonthlyRepayment,
+      annuityPayment,
     });
   } else {
     return table;
