@@ -7,10 +7,6 @@
     import {AppForm, isAppFormValid} from "@components/stores/FormStore";
     import Table from "@components/Table.svelte";
     import ThemeToggler from "@components/ThemeToggler.svelte";
-    import {createEventDispatcher} from "svelte";
-    import TailwindCSS from "./TailwindCSS.svelte";
-
-    const dispatch = createEventDispatcher()
 
     $: fields = $AppForm.reduce((acc, cur) => ({
         ...acc,
@@ -24,18 +20,25 @@
     }
 </script>
 
-<TailwindCSS/>
-<MainLayout>
-    <ThemeToggler/>
-    <Form
-            bind:form={$AppForm}
-            onSubmit={submit}
-            isValidForm={$isAppFormValid}
-            withReset
-    />
-</MainLayout>
-<CalculationsLayout>
-    {#if $calculations}
-        <Table table={$calculations}/>
-    {/if}
-</CalculationsLayout>
+<main id="ce-app" class="overflow-x-hidden w-full h-full">
+    <MainLayout>
+        <ThemeToggler/>
+        <Form
+                bind:form={$AppForm}
+                onSubmit={submit}
+                isValidForm={$isAppFormValid}
+                withReset
+        />
+    </MainLayout>
+    <CalculationsLayout>
+        {#if $calculations}
+            <Table table={$calculations}/>
+        {/if}
+    </CalculationsLayout>
+</main>
+
+<style global lang="postcss">
+    @tailwind utilities;
+    @tailwind components;
+    @tailwind base;
+</style>

@@ -1,8 +1,23 @@
 {
   "name": "credit-estimator",
+  "author": {
+    "email": "romanshalman@gmail.com",
+    "name": "Roman Shalman"
+  },
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/credit-estimator.umd.cjs",
+  "module": "./dist/credit-estimator.js",
+  "exports": {
+    ".": {
+      "import": "./dist/credit-estimator.js",
+      "require": "./dist/credit-estimator.umd.cjs"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -13,7 +28,7 @@
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.1",
     "@tsconfig/svelte": "^3.0.0",
-    "autoprefixer": "^10.4.7",
+    "autoprefixer": "^10.4.8",
     "daisyui": "^2.20.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
@@ -26,6 +41,7 @@
     "tslib": "^2.4.0",
     "typescript": "^4.6.4",
     "vite": "^3.0.0",
+    "vite-plugin-css-injected-by-js": "^2.0.3",
     "vite-tsconfig-paths": "^3.5.0"
   },
   "lint-staged": {

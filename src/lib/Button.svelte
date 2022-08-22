@@ -9,4 +9,4 @@
 </script>
 
 <button class={`btn${className ? " " + className : ''} w-full btn-md sm:btn-md md:btn-md lg:btn-md ${isDisabled ? 'btn-disabled' : ''}`}
-        on:click={onClick} role="button" aria-disabled={isDisabled} disabled={isDisabled}>{text}</button>
+        on:click={onClick} aria-disabled={isDisabled} disabled={isDisabled}>{text}</button>

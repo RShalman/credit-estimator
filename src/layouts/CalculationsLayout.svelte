@@ -9,7 +9,7 @@
     })
 </script>
 
-<div bind:this={calculationsTable}
+<section bind:this={calculationsTable}
      class={`h-screen overflow-auto w-full${$calculations ? '' :  " " + 'hidden'}`}>
     <slot/>
-</div>
+</section>
