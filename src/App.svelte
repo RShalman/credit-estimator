@@ -7,6 +7,7 @@
     import {AppForm, isAppFormValid} from "@components/stores/FormStore";
     import Table from "@components/Table.svelte";
     import ThemeToggler from "@components/ThemeToggler.svelte";
+    import TailwindCSS from "./TailwindCSS.svelte";
 
     $: fields = $AppForm.reduce((acc, cur) => ({
         ...acc,
@@ -21,6 +22,7 @@
 </script>
 
 <main id="ce-app" class="overflow-x-hidden w-full h-full">
+    <TailwindCSS />
     <MainLayout>
         <ThemeToggler/>
         <Form
@@ -36,9 +38,3 @@
         {/if}
     </CalculationsLayout>
 </main>
-
-<style global lang="postcss">
-    @tailwind utilities;
-    @tailwind components;
-    @tailwind base;
-</style>

@@ -1,52 +1,63 @@
 # Credit Estimator Project
 
-A project that's made to output a repayment calendar according to the inputs made.
+A project that's made to calculate a basic repayment calendar according to the inputs made.
 
-# Svelte + TS + Vite
+# Project tech stack
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+- Svelte
+- TS
+- Vite
+- TailwindCSS
+- daisyUI
 
-## Recommended IDE Setup
+## Reason for implementation
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+Couldn't find any proper mortgage calculator with a possibility to set your own minimal monthly repayment amount to see
+how it will affect on the total time of repayment. It uses a basic complex percentage function that applies extra
+percentage per following period. It doesn't consider any extra things involved like insurance, etc. Probably in future
+that calculator will be extended to be more precise for all the edge cases.
 
-## Need an official Svelte framework?
+## How to run the app
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+Once you've fetched the repo, run the following commands:
 
-## Technical considerations
-
-**Why use this over SvelteKit?**
-
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-  `vite dev` and `vite build` wouldn't work in a SvelteKit environment, for example.
-
-This template contains as little as possible to get started with Vite + TypeScript + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
-
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
-
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
-
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
-
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `allowJs` in the TS template?**
-
-While `allowJs: false` would indeed prevent the use of `.js` files in the project, it does not prevent the use of JavaScript syntax in `.svelte` files. In addition, it would force `checkJs: false`, bringing the worst of both worlds: not being able to guarantee the entire codebase is TypeScript, and also having worse typechecking for the existing JavaScript. In addition, there are valid use cases in which a mixed codebase may be relevant.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```ts
-// store.ts
-// An extremely simple external store
-import { writable } from 'svelte/store';
-export default writable(0);
 ```
+npm run i
+
+make dev
+or
+npm run dev
+```
+
+Project by default will be available at [http://127.0.0.1:5173/](http://127.0.0.1:5173/).
+
+## How to use the app
+
+![img.png](img.png)
+
+At the moment the app is represented with the following functionality:
+
+- Light/Dark theme switcher
+- Field to enter the whole sum of credit
+- Field to enter the number of months to repay the credit
+- Field to enter the Interest rate in percentage
+- (OPTIONAL) field to enter the minimum monthly repayment amount. **NOTE!** if it will be less than base repayment
+  amount
+  per month then this field input won't be taken into consideration while calculating.
+- Buttons to calculate & reset the form
+
+Once you've pushed the Submit button you'll be scrolled down to the calculations' table as shown in the following
+example
+![img_1.png](img_1.png)
+
+## How to use this app inside another app
+
+If you want to mount and use this app inside your app feel free to find all the necessary exports inside `dist` folder
+in the root of the project.
+
+You may find the signature of an exported function inside `src/lib.ts` file. At the moment exported function returns an array of two elements:
+
+- Instance of the app
+- Function to use in the lifecycle (or anywhere you need) to unmount the app
+
+#### This app and readme may be extended in future!

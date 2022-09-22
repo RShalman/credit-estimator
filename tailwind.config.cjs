@@ -2,7 +2,7 @@
 import daisyui from 'daisyui';
 
 export default {
-  important: '#ce-app',
+  // important: '#ce-app',
   corePlugins: {
     preflight: false,
   },
