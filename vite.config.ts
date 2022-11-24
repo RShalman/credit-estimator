@@ -7,11 +7,11 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    cssInjectedByJsPlugin(),
     svelte({
       emitCss: true,
     }),
     tsconfigPaths(),
+    cssInjectedByJsPlugin({ topExecutionPriority: true, styleId: `'credit-estimator-styles'` }),
   ],
   resolve: {
     dedupe: ['svelte'],

@@ -1,6 +1,5 @@
 import type { IFunction } from '@customTypes/custom';
 import App from 'src/App.svelte';
-import './global.scss';
 
 const app = (id: string): [App, IFunction] => {
   let application = new App({

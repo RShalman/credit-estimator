@@ -28,10 +28,10 @@
         {/each}
     {/if}
     <div class="max-w-full flex flex-wrap flex-row [&>button]:mx-5 justify-center align-center">
-    <Button text="Submit" className={`${isLightTheme ? 'btn-primary' : 'btn-success'} dark:btn-outline mt-10`}
+    <Button text="Submit" className={`btn-primary dark:btn-default dark:hover:btn-success mt-10`}
             onClick={onSubmit} isDisabled={!isValidForm}/>
     {#if withReset}
-        <Button text="Reset" className={"btn-error dark:btn-outline mt-12"} onClick={() => {
+        <Button text="Reset" className={"btn-neutral hover:btn-error text-black dark:text-white dark:hover:text-black mt-12"} onClick={() => {
             resetAppForm()
             resetCalculations()
         }}/>

@@ -7,8 +7,11 @@ export default {
     preflight: false,
   },
   content: ['./src/**/*.{svelte,js,ts}'],
-  // prefix: 'credit-estimator-',
+  // prefix: 'credit-estimator',
   theme: {
+    fontFamily: {
+      sans: ['Inter', 'Avenir', 'Helvetica', 'Arial', 'sans-serif'],
+    },
     extend: {},
     container: {
       center: true,

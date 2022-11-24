@@ -21,7 +21,7 @@
     }
 </script>
 
-<main id="ce-app" class="overflow-x-hidden w-full h-full">
+<main class="font-sans overflow-x-hidden w-full h-full">
     <TailwindCSS />
     <MainLayout>
         <ThemeToggler/>
