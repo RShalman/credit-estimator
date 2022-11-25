@@ -11,6 +11,7 @@ export default defineConfig({
       emitCss: true,
     }),
     tsconfigPaths(),
+    //  TODO: think of styles cleanup on unmount
     cssInjectedByJsPlugin({ topExecutionPriority: true, styleId: `'credit-estimator-styles'` }),
   ],
   resolve: {
