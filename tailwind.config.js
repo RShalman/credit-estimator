@@ -2,6 +2,7 @@
 import daisyui from 'daisyui';
 
 export default {
+  purge: ['./src/**/*.svelte', './src/**/*.css'],
   // important: '#ce-app',
   corePlugins: {
     preflight: false,

@@ -1,11 +1,31 @@
-import type { Table, TableItem } from '@components/Table';
-import { writable } from 'svelte/store';
+import { AppForm, isAppFormValid } from '@components/stores/FormStore';
+import type { FormFieldNames, IForm } from '@components/stores/FormStore';
+import { get, writable } from 'svelte/store';
+
+export type Table<H extends string | number> = {
+  headers: H[];
+  items: TableItem<H>[];
+};
+
+export type TableItem<I extends string | number> = Record<I, string | number>;
 
 const headers = ['creditSum', 'amountToRepay', 'generalPayment'] as const;
 
 export type CalculationHeaders = typeof headers[number];
 
 export const calculations = writable(null);
+
+export function submit() {
+  const { creditSum, creditTimeInMonths, interestRate, minManualPayment } = get(AppForm).reduce(
+    (acc, cur) => ({
+      ...acc,
+      [cur.name]: cur.value,
+    }),
+    {} as Record<FormFieldNames, IForm[number]['value']>,
+  );
+
+  makeCalculations(creditSum, creditTimeInMonths, interestRate, minManualPayment);
+}
 
 export function makeCalculations(creditSum, creditTimeInMonths, interestRate, minManualPayment) {
   const annuityPayment = getAnnuityPayment(creditSum, interestRate, creditTimeInMonths);

@@ -7,12 +7,15 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    // cssInjectedByJsPlugin(),
     svelte({
-      emitCss: true,
+      emitCss: false,
+      compilerOptions: {
+        dev: false,
+        customElement: true,
+      },
     }),
     tsconfigPaths(),
-    //  TODO: think of styles cleanup on unmount
-    cssInjectedByJsPlugin({ topExecutionPriority: true, styleId: `'credit-estimator-styles'` }),
   ],
   resolve: {
     dedupe: ['svelte'],
@@ -25,6 +28,7 @@ export default defineConfig({
     assetsDir: '',
     sourcemap: true,
     lib: {
+      formats: ['iife'],
       entry: 'src/lib.ts',
       name: 'CreditEstimator',
       fileName: 'credit-estimator',

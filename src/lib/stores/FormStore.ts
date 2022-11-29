@@ -1,5 +1,8 @@
-import type { FormFieldNames } from '@components/complex/Form';
-import { get, writable } from 'svelte/store';
+import { resetCalculations } from '@components/stores/CalculationsStore';
+import { writable } from 'svelte/store';
+
+export type IForm = ReturnType<typeof appFormSchema>;
+export type FormFieldNames = IForm[number]['name'];
 
 export const appFormSchema = () =>
   [
@@ -28,10 +31,11 @@ AppForm.subscribe((form) => {
   isAppFormValid.set(form.every(({ name, value }) => (name === 'minManualPayment' ? true : !!value)));
 });
 
-export function findField(fieldName: FormFieldNames) {
-  return get(AppForm).find((field) => field.name === fieldName);
-}
-
 export function resetAppForm() {
   AppForm.set(appFormSchema());
+}
+
+export function resetForm() {
+  resetAppForm();
+  resetCalculations();
 }
