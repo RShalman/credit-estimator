@@ -452,7 +452,7 @@ var CreditEstimator = (function () {
           p(c, 'id', (f = e[23])),
           p(c, 'type', 'number'),
           p(c, 'placeholder', (m = e[24])),
-          p(c, 'class', 'input input-primary input-bordered dark:text-white w-full'),
+          p(c, 'class', 'input input-primary input-bordered dark:text-white sm:w-full w-11/12 '),
           p(r, 'class', 'form-control'),
           p(t, 'class', 'flex-auto w-full mx-auto my-2 [&>div]:justify-center [&>div]:items-center');
       },
@@ -753,10 +753,10 @@ var CreditEstimator = (function () {
           p(A, 'class', 'max-w-full flex flex-wrap flex-row [&>button]:mx-5 justify-center align-center'),
           p(v, 'class', 'container mx-auto flex items-center justify-center flex-wrap flex-row'),
           p(n, 'class', 'w-11/12 sm:w-6/12 md:w-5/12 max-w-screen-md mx-auto'),
-          p(a, 'class', 'container mx-auto w-full h-full p-10'),
+          p(a, 'class', 'sm:container mx-auto w-full h-full py-10'),
           p(r, 'class', 'bg-green-200 dark:bg-teal-600 min-h-screen w-full'),
           p(y, 'class', (H = `h-screen overflow-auto w-full${re(!e[5], 'hidden')}`)),
-          p(t, 'class', 'font-sans overflow-x-hidden w-full h-full'),
+          p(t, 'class', 'font-sans w-full h-full'),
           p(t, 'data-theme', e[2]);
       },
       m(z, j) {
@@ -873,10 +873,9 @@ var CreditEstimator = (function () {
 }.self-start{align-self:flex-start
 }.overflow-auto{overflow:auto
 }.overflow-x-auto{overflow-x:auto
-}.overflow-x-hidden{overflow-x:hidden
 }.bg-green-200{--tw-bg-opacity:1;background-color:rgb(187 247 208 / var(--tw-bg-opacity))
 }.fill-current{fill:currentColor
-}.p-10{padding:2.5rem
+}.py-10{padding-top:2.5rem;padding-bottom:2.5rem
 }.font-sans{font-family:Inter, Avenir, Helvetica, Arial, sans-serif
 }.text-black{--tw-text-opacity:1;color:rgb(0 0 0 / var(--tw-text-opacity))
 }.container{width:100%;margin-right:auto;margin-left:auto
@@ -1014,7 +1013,14 @@ var CreditEstimator = (function () {
 }[data-theme="dark"] .dark\\:hover\\:btn-success:hover.btn-outline{--tw-text-opacity:1;color:hsl(var(--su) / var(--tw-text-opacity))
 }[data-theme="dark"] .dark\\:hover\\:btn-success:hover.btn-outline:hover,[data-theme="dark"] .dark\\:hover\\:btn-success:hover .btn-outline.btn-active{--tw-border-opacity:1;border-color:hsl(var(--su) / var(--tw-border-opacity));--tw-bg-opacity:1;background-color:hsl(var(--su) / var(--tw-bg-opacity));--tw-text-opacity:1;color:hsl(var(--suc, var(--nc)) / var(--tw-text-opacity))
 }.drawer-toggle:focus-visible~.drawer-content [data-theme="dark"] .dark\\:hover\\:btn-success:hover.drawer-button{outline:2px solid hsl(var(--su))
-}@media(min-width: 640px){.sm\\:w-6\\/12{width:50%
+}@media(min-width: 640px){.sm\\:container{width:100%;margin-right:auto;margin-left:auto
+    }@media(min-width: 640px){.sm\\:container{max-width:640px
+        }}@media(min-width: 768px){.sm\\:container{max-width:768px
+        }}@media(min-width: 1024px){.sm\\:container{max-width:1024px
+        }}@media(min-width: 1280px){.sm\\:container{max-width:1280px
+        }}@media(min-width: 1536px){.sm\\:container{max-width:1536px
+        }}.sm\\:w-6\\/12{width:50%
+    }.sm\\:w-full{width:100%
     }.sm\\:btn-md{height:3rem;padding-left:1rem;padding-right:1rem;min-height:3rem;font-size:0.875rem
     }.btn-square:where(.sm\\:btn-md){height:3rem;width:3rem;padding:0px
     }.btn-circle:where(.sm\\:btn-md){height:3rem;width:3rem;border-radius:9999px;padding:0px

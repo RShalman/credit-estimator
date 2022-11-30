@@ -18,9 +18,9 @@
     }
 </script>
 
-<main class='font-sans overflow-x-hidden w-full h-full' data-theme={$theme}>
+<main class='font-sans w-full h-full' data-theme={$theme}>
     <section class='bg-green-200 dark:bg-teal-600 min-h-screen w-full'>
-        <div class='container mx-auto w-full h-full p-10'>
+        <div class='sm:container mx-auto w-full h-full py-10'>
             <div class='w-11/12 sm:w-6/12 md:w-5/12 max-w-screen-md mx-auto'>
                 <!-- Theme Toggler -->
                 <label class="swap swap-rotate">
@@ -53,7 +53,7 @@
                                         <span class="text-black dark:text-white">{label}</span>
                                     </label>
                                     <input id={label} bind:value={value} type='number' placeholder={placeholder}
-                                           class='input input-primary input-bordered dark:text-white w-full'/>
+                                           class='input input-primary input-bordered dark:text-white sm:w-full w-11/12 '/>
                                 </div>
                             </div>
                         {/each}
