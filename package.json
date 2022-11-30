@@ -10,12 +10,12 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/credit-estimator.umd.cjs",
-  "module": "./dist/credit-estimator.js",
+  "main": "./dist/credit-estimator.iife.js",
+  "module": "./dist/credit-estimator.iife.js",
   "exports": {
     ".": {
-      "import": "./dist/credit-estimator.js",
-      "require": "./dist/credit-estimator.umd.cjs"
+      "import": "./dist/credit-estimator.iife.js",
+      "require": "./dist/credit-estimator.iife.js"
     }
   },
   "scripts": {
