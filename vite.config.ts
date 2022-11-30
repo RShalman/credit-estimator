@@ -1,4 +1,4 @@
-import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
+import { sveltePreprocess } from 'svelte-preprocess/dist/autoProcess';
 import postcss from './postcss.config.cjs';
 import { defineConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
@@ -7,11 +7,12 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    // cssInjectedByJsPlugin(),
     svelte({
+      preprocess: sveltePreprocess({
+        postcss,
+      }),
       emitCss: false,
       compilerOptions: {
-        dev: false,
         customElement: true,
       },
     }),

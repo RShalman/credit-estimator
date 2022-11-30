@@ -3,12 +3,10 @@ import daisyui from 'daisyui';
 
 export default {
   purge: ['./src/**/*.svelte', './src/**/*.css'],
-  // important: '#ce-app',
   corePlugins: {
     preflight: false,
   },
   content: ['./src/**/*.{svelte,js,ts}'],
-  // prefix: 'credit-estimator',
   theme: {
     fontFamily: {
       sans: ['Inter', 'Avenir', 'Helvetica', 'Arial', 'sans-serif'],

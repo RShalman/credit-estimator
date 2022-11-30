@@ -37,11 +37,11 @@ export const getTheme = (): DaisyThemes | boolean => {
 
   if (storageTheme && storageTheme !== htmlTheme) setItem(storageTheme);
 
-  return storageTheme ?? htmlTheme ?? false;
+  return storageTheme ?? htmlTheme ?? 'light';
 };
 
-export const setItem = (theme: DaisyThemes): void => {
-  document?.documentElement?.setAttribute(DAISY_THEME_KEY, theme);
+export const setItem = (theme: DaisyThemes, topLevel = false): void => {
+  topLevel && document?.documentElement?.setAttribute(DAISY_THEME_KEY, theme);
   localStorage?.setItem(DAISY_THEME_KEY, theme);
 };
 
